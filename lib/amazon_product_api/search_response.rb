@@ -13,6 +13,7 @@ module AmazonProductAPI
     SUCCESS_CODE_RANGE = (200..299)
     FOUND_CODE = 302
     NOT_MODIFIED = 304
+    SUCCESS_CODES = SUCCESS_CODE_RANGE.to_a + [FOUND_CODE, NOT_MODIFIED]
 
     def initialize(response_hash, code)
       @response_hash = response_hash
@@ -28,7 +29,7 @@ module AmazonProductAPI
     end
 
     def success?
-      SUCCESS_CODE_RANGE.include?(code) || [FOUND_CODE, NOT_MODIFIED].include?(code)
+      SUCCESS_CODES.include?(code)
     end
 
     def error?
