@@ -36,10 +36,9 @@ feature 'Managing items and wishlists:' do
     end
 
     scenario "I get redirected to the search page when Amazon returns an error code.", :external do
-      allow_any_instance_of(HTTParty::Response).to receive(:code).and_return(500)
       visit wishlist_path(wishlist)
       click_link "Add to Wishlist"
-      fill_in "search_field", with: "corgi"
+      fill_in "search_field", with: "return an error" # Triggers webmock to return 500
       click_button "Search Amazon"
 
       expect(page).to have_text 'Could not connect to Amazon'
